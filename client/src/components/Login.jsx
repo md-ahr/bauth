@@ -2,21 +2,25 @@ import { Link } from "react-router-dom";
 import avatar from "../assets/profile.png";
 import { Toaster } from "react-hot-toast";
 import { useFormik } from "formik";
+import { emailValidate } from "../helpers/validate";
 
 const Login = () => {
     const formik = useFormik({
         initialValues: {
-            username: "",
+            email: "",
         },
+        validate: emailValidate,
         validateOnBlur: false,
         validateOnChange: false,
-        onSubmit: async (values) => {
+        onSubmit: async (values, { resetForm }) => {
             console.log(values);
+            resetForm({ values: "" });
         },
     });
 
     return (
         <div className="container mx-auto">
+            <Toaster position="top-center" reverseOrder="false"></Toaster>
             <div className="flex justify-center items-center h-screen">
                 <div className="border-4 border-gray-50 bg-[#ffffff8c] w-[60%] sm:w-[50%] lg:w-[40%] xl:w-[30%] rounded-3xl py-12 md:py-16 xl:py-20 px-0 xl:px-7 min-w-max backdrop-blur-[8px] shadow-[0_4px_30px_#4747470b]">
                     <div className="title flex flex-col items-center">
@@ -37,10 +41,10 @@ const Login = () => {
                         </div>
                         <div className="mt-4 textbox flex flex-col items-center gap-6">
                             <input
-                                type="text"
+                                type="email"
                                 className="border-0 px-5 py-4 rounded-xl w-3/4 shadow-sm text-lg focus:outline-none"
-                                placeholder="Username"
-                                {...formik.getFieldProps('username')}
+                                placeholder="Email"
+                                {...formik.getFieldProps("email")}
                             />
                             <button
                                 className="order bg-blue-500 w-3/4 py-4 rounded-lg text-gray-50 text-xl shadow-sm text-center hover:bg-blue-600 transition duration-300 ease"
