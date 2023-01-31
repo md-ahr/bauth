@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
 import { Formik, Form, Field } from "formik";
 import { LoginSchema } from "../helpers/validate";
 
 const Login = () => {
     return (
         <div className="container mx-auto">
-            <Toaster position="top-center" reverseOrder="false"></Toaster>
             <div className="flex justify-center items-center h-screen">
                 <div className="border-4 border-gray-50 bg-[#ffffff8c] w-[60%] sm:w-[50%] lg:w-[40%] xl:w-[30%] rounded-3xl py-12 md:py-16 xl:py-20 px-0 xl:px-7 min-w-max backdrop-blur-[8px] shadow-[0_4px_30px_#4747470b]">
                     <div className="title flex flex-col items-center">
@@ -35,8 +33,7 @@ const Login = () => {
                                             type="email"
                                             name="email"
                                             className={`border-0 px-5 py-4 rounded-xl w-3/4 shadow-sm text-lg focus:outline-none ${
-                                                errors.email &&
-                                                touched.email
+                                                errors.email && touched.email
                                                     ? "invalid"
                                                     : ""
                                             }`}
@@ -70,7 +67,7 @@ const Login = () => {
                                         className="mt-6 bg-blue-500 w-3/4 py-4 rounded-lg text-gray-50 text-xl shadow-sm text-center hover:bg-blue-600 transition duration-300 ease"
                                         type="submit"
                                     >
-                                        Let's Go
+                                        Sign In
                                     </button>
                                 </div>
                                 <div className="pt-4 text-center">
@@ -78,13 +75,15 @@ const Login = () => {
                                         Forgot Password?{" "}
                                         <Link
                                             className="text-blue-500 hover:underline"
-                                            to="/reset"
+                                            to="/recovery"
                                         >
                                             Reset Now
                                         </Link>
                                     </span>
                                 </div>
-                                <p className="py-2 text-center text-slate-600 font-medium">OR</p>
+                                <p className="py-2 text-center text-slate-600 font-medium">
+                                    OR
+                                </p>
                                 <div className="text-center">
                                     <span className="text-gray-500">
                                         Not a Member?{" "}
