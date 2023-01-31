@@ -1,23 +1,9 @@
 import { Link } from "react-router-dom";
-import avatar from "../assets/profile.png";
 import { Toaster } from "react-hot-toast";
-import { useFormik } from "formik";
-import { emailValidate } from "../helpers/validate";
+import { Formik, Form, Field } from "formik";
+import { LoginSchema } from "../helpers/validate";
 
 const Login = () => {
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-        },
-        validate: emailValidate,
-        validateOnBlur: false,
-        validateOnChange: false,
-        onSubmit: async (values, { resetForm }) => {
-            console.log(values);
-            resetForm({ values: "" });
-        },
-    });
-
     return (
         <div className="container mx-auto">
             <Toaster position="top-center" reverseOrder="false"></Toaster>
@@ -31,40 +17,88 @@ const Login = () => {
                             Explore more by connecting with us.
                         </span>
                     </div>
-                    <form className="py-1" onSubmit={formik.handleSubmit}>
-                        <div className="profile flex justify-center py-4">
-                            <img
-                                src={avatar}
-                                className="border-4 border-gray-100 w-[135px] rounded-full shadow-lg"
-                                alt="avatar"
-                            />
-                        </div>
-                        <div className="mt-4 textbox flex flex-col items-center gap-6">
-                            <input
-                                type="email"
-                                className="border-0 px-5 py-4 rounded-xl w-3/4 shadow-sm text-lg focus:outline-none"
-                                placeholder="Email"
-                                {...formik.getFieldProps("email")}
-                            />
-                            <button
-                                className="order bg-blue-500 w-3/4 py-4 rounded-lg text-gray-50 text-xl shadow-sm text-center hover:bg-blue-600 transition duration-300 ease"
-                                type="submit"
-                            >
-                                Let's Go
-                            </button>
-                        </div>
-                        <div className="text-center py-4">
-                            <span className="text-gray-500">
-                                Not a Member?{" "}
-                                <Link
-                                    className="text-blue-500 hover:underline"
-                                    to="/register"
-                                >
-                                    Register Now
-                                </Link>
-                            </span>
-                        </div>
-                    </form>
+                    <Formik
+                        initialValues={{
+                            email: "",
+                            password: "",
+                        }}
+                        validationSchema={LoginSchema}
+                        onSubmit={(values) => {
+                            console.log(values);
+                        }}
+                    >
+                        {({ errors, touched }) => (
+                            <Form>
+                                <div className="mt-4 textbox flex flex-col items-center">
+                                    <div className="w-full text-center">
+                                        <Field
+                                            type="email"
+                                            name="email"
+                                            className={`border-0 px-5 py-4 rounded-xl w-3/4 shadow-sm text-lg focus:outline-none ${
+                                                errors.email &&
+                                                touched.email
+                                                    ? "invalid"
+                                                    : ""
+                                            }`}
+                                            placeholder="Email"
+                                        />
+                                        {errors.email && touched.email ? (
+                                            <div className="mt-2 text-[13px] text-red-600">
+                                                {errors.email}
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                    <div className="mt-6 w-full text-center">
+                                        <Field
+                                            type="password"
+                                            name="password"
+                                            className={`border-0 px-5 py-4 rounded-xl w-3/4 shadow-sm text-lg focus:outline-none ${
+                                                errors.password &&
+                                                touched.password
+                                                    ? "invalid"
+                                                    : ""
+                                            }`}
+                                            placeholder="Password"
+                                        />
+                                        {errors.password && touched.password ? (
+                                            <div className="mt-2 text-[13px] text-red-600">
+                                                {errors.password}
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                    <button
+                                        className="mt-6 bg-blue-500 w-3/4 py-4 rounded-lg text-gray-50 text-xl shadow-sm text-center hover:bg-blue-600 transition duration-300 ease"
+                                        type="submit"
+                                    >
+                                        Let's Go
+                                    </button>
+                                </div>
+                                <div className="pt-4 text-center">
+                                    <span className="text-gray-500">
+                                        Forgot Password?{" "}
+                                        <Link
+                                            className="text-blue-500 hover:underline"
+                                            to="/reset"
+                                        >
+                                            Reset Now
+                                        </Link>
+                                    </span>
+                                </div>
+                                <p className="py-2 text-center text-slate-600 font-medium">OR</p>
+                                <div className="text-center">
+                                    <span className="text-gray-500">
+                                        Not a Member?{" "}
+                                        <Link
+                                            className="text-blue-500 hover:underline"
+                                            to="/register"
+                                        >
+                                            Register Now
+                                        </Link>
+                                    </span>
+                                </div>
+                            </Form>
+                        )}
+                    </Formik>
                 </div>
             </div>
         </div>
