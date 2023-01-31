@@ -5,6 +5,19 @@ export const LoginSchema = Yup.object().shape({
         .email("Invalid email address")
         .required("Email address is required"),
     password: Yup.string()
-        .min(3, "Password length should be minimum 4 characters!")
+        .min(4, "Password must be at least 4 characters")
         .required("Password is required"),
+});
+
+export const MatchPasswordSchema = Yup.object().shape({
+    password: Yup.string()
+        .required("Password is required")
+        .min(4, "Password must be at least 4 characters"),
+    confirmPassword: Yup.string().test(
+        "passwords-match",
+        "Passwords does not match",
+        function (value) {
+            return this.parent.password === value;
+        }
+    ),
 });
