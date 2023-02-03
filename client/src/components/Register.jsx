@@ -14,8 +14,8 @@ const Register = () => {
     };
 
     return (
-        <div className="container mx-auto">
-            <div className="flex justify-center items-center h-screen">
+        <div className="container my-4 sm:my-0 mx-auto">
+            <div className="flex justify-center items-center min-h-screen">
                 <div className="border-4 border-gray-50 bg-[#ffffff8c] w-[60%] sm:w-[50%] lg:w-[40%] xl:w-[30%] rounded-3xl py-12 md:py-16 xl:py-20 px-0 xl:px-7 min-w-max backdrop-blur-[8px] shadow-[0_4px_30px_#4747470b]">
                     <div className="title flex flex-col items-center">
                         <h4 className="text-2xl md:text-3xl xl:text-4xl font-bold">
@@ -27,7 +27,7 @@ const Register = () => {
                     </div>
                     <Formik
                         initialValues={{
-                            name: "",
+                            username: "",
                             email: "",
                             password: "",
                         }}
@@ -61,17 +61,17 @@ const Register = () => {
                                     <div className="mt-6 w-full text-center">
                                         <Field
                                             type="text"
-                                            name="name"
+                                            name="username"
                                             className={`border-0 px-5 py-4 rounded-xl w-3/4 shadow-sm text-lg focus:outline-none ${
-                                                errors.name && touched.name
+                                                errors.username && touched.username
                                                     ? "invalid"
                                                     : ""
                                             }`}
-                                            placeholder="Name"
+                                            placeholder="Username"
                                         />
-                                        {errors.name && touched.name ? (
+                                        {errors.username && touched.username ? (
                                             <div className="mt-2 text-[13px] text-red-600">
-                                                {errors.name}
+                                                {errors.username}
                                             </div>
                                         ) : null}
                                     </div>

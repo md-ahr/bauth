@@ -21,9 +21,10 @@ export const MatchPasswordSchema = Yup.object().shape({
 });
 
 export const RegisterSchema = Yup.object().shape({
-    name: Yup.string()
-        .required("Name address is required")
-        .matches(/^[A-Za-z ]*$/, "Name must be only characters"),
+    username: Yup.string().matches(
+        /^[A-Za-z ]*$/,
+        "Username must be only characters"
+    ),
     email: Yup.string()
         .email("Invalid email address")
         .required("Email address is required"),
