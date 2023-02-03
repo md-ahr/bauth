@@ -30,11 +30,4 @@ export const RegisterSchema = Yup.object().shape({
     password: Yup.string()
         .min(4, "Password must be at least 4 characters")
         .required("Password is required"),
-    confirmPassword: Yup.string().test(
-        "passwords-match",
-        "Passwords does not match",
-        function (value) {
-            return this.parent.password === value;
-        }
-    ),
 });
