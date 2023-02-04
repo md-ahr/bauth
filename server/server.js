@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import connect from "./config/dbConfig.js";
 
 const app = express();
 
@@ -16,6 +17,16 @@ app.get("/", (req, res) => {
     res.status(200).json({ message: "backend is working!" });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server connected to http://localhost:${PORT}`);
-});
+connect()
+    .then(() => {
+        try {
+            app.listen(PORT, () => {
+                console.log(`Server connected to http://localhost:${PORT}`);
+            });
+        } catch (error) {
+            console.log("Cannot connect to the server!");
+        }
+    })
+    .catch((error) => {
+        console.log("Invalid database connection!");
+    });
